@@ -1,8 +1,8 @@
 #ifndef WEBAPPCONTROLLER_H
 #define WEBAPPCONTROLLER_H
-
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 class WebAppController : public QObject
 {
@@ -10,15 +10,23 @@ class WebAppController : public QObject
 public:
     explicit WebAppController(QObject *parent = nullptr);
     QNetworkAccessManager *manager;
-    void getPageInfo();
+//    void getPageInfo();
 //        {
 //            manager->get(QNetworkRequest(QUrl("https://yandex.ru/pogoda/moscow/details#1")));
 //        }
-    void onPageInfo(){}
+//    void onPageInfo(){}
+
 signals:
+    void authorized();
+    void authSuccess();
 
 public slots:
-    void onRezult(QNetworkReply *reply);
+    void onPageInfo(QNetworkReply *reply);
+    void getPageInfo();
+    void onAuth(QString login, QString password);//функция для авторизации
+
+protected:
+QObject *poisk; //Переменная, которая будет искать объект какой-то в qml
 };
 
 
