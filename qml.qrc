@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>image/sun.jpg</file>
+        <file>img/pause.png</file>
+        <file>img/play.png</file>
+        <file>img/space.jpg</file>
+        <file>vids/sample.avi</file>
+        <file>vids/space.mp4</file>
+        <file>main.cpp</file>
+        <file>image/bug.png</file>
+        <file>image/SUN.png</file>
+        <file>img/pause1.png</file>
+        <file>img/play1.png</file>
+        <file>image/lab.png</file>
+        <file>image/yan.png</file>
+    </qresource>
+</RCC>
