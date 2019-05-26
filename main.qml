@@ -6,10 +6,12 @@ import QtQuick.Window 2.11
 import QtGraphicalEffects 1.12
 
 ApplicationWindow {
+    id: window
     visible: true
     width: 640
     height: 1000
     title: qsTr("Tabs")
+//    signal getPageInfo();
 
     SwipeView {
         id: swipeView
@@ -345,6 +347,7 @@ ApplicationWindow {
                                              Layout.preferredWidth: 100
                                              //width: 100
                                              //height: 100
+                                             
 
                                              Image {
                                                  id: image2
@@ -675,7 +678,7 @@ ApplicationWindow {
             }
      }
 
-        Page { //Лабораторная работа 4. Отправка запросов к HTTP серверу
+        Page { //Лабораторная работа 4. Отправка запросов к HTTPS серверу
              id: page4
              width: 640
              height: 1000
@@ -739,13 +742,120 @@ ApplicationWindow {
                      }
                  }
                  }
-
              }
+
+               ColumnLayout{
+                   anchors.fill: parent
+
+                   Button {
+                   text: "Отображение кода"
+                   onClicked: {
+                       _myV.getPageInfo();//функция передачи информации из webappcontroller.cpp
+                   }}
+
+                   ScrollView{
+                       focusPolicy: Qt.WheelFocus // прокручивание колесиком
+                       Layout.alignment: Qt.AlignCenter
+                       Layout.preferredHeight: 0.6 * window.height
+                       Layout.preferredWidth: 0.8 * window.width
+
+                       TextArea{
+                       id: otbr
+                       objectName: "otbr"
+                       wrapMode: Text.WrapAnywhere
+                       font.pixelSize: 14
+                       }
+                   }
+
+                   RowLayout{
+                       Label{
+                           text: "Погода на сегодняшний день"
+                       }
+                       TextEdit{
+                           id: text_edit
+                           objectName: "text_edit"
+                           readOnly: true
+                           font.pixelSize: 16
+                       }
+                   }
+
+
+               }
+
+
+
+
              background: Rectangle {
                  color:"#BABABA"
              }
          }
-    }
+
+        Page { //Лабораторная работа 5. Авторизация ВК
+             id: page5
+             width: 640
+             height: 1000
+
+             header: Rectangle { // прямоугольник, то есть место, где содержиться заголовок
+                 color:"#FFFFFF"
+                 width: 640
+                 height: 80
+
+                 GridLayout{ //выравнивание заголовка, используя "таблицу"
+                     anchors.fill: parent
+                     columns: 4
+                     rows: 1
+
+                 Label{//- название как у яндекса (Я-красная, ндекс- черные)
+                     Layout.column: 0
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 8
+                     text: qsTr("Л")
+                     font.weight: Font.Bold
+                     color:"#FB170E"
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignVCenter
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 6
+                     font{
+                         family: "Bahnschrift Condensed"
+                     }
+                 }
+                 Label{//- название как у яндекса (Я-красная, ндекс- черные)
+                     Layout.column: 1
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 32
+                     text: qsTr("аба4.")
+                     font.weight: Font.Bold
+                     color:"#000000"
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignBottom
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 3
+                     font{
+                         family: "Times New Roman"
+                     }
+                 }
+                 Label { //- содержание 1 лабы -желтым цветом
+                     Layout.column: 2
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 40
+                     color: "#FFEA2E"
+                     text: qsTr("Authorized VK")
+                     font.weight: Font.Bold
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignBottom
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 3
+                     font{
+                         family: "Bahnschrift Condensed"
+                     }
+                 }
+                 }
+             }
+    }}
 
     footer: TabBar {
         id: tabBar
@@ -762,6 +872,9 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("Лаба4")
+        }
+        TabButton {
+            text: qsTr("Лаба5")
         }
     }
 }
