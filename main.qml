@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.3
 import QtMultimedia 5.12
 import QtQuick.Window 2.11
 import QtGraphicalEffects 1.12
+import Qt.labs.platform 1.1
+import QtWebView 1.1
 
 ApplicationWindow {
     id: window
@@ -12,6 +14,9 @@ ApplicationWindow {
     height: 1000
     title: qsTr("Tabs")
 //    signal getPageInfo();
+    signal success (string add);
+    signal restRequest();
+    signal onAuth(string login, string password);
 
     SwipeView {
         id: swipeView
@@ -826,7 +831,7 @@ ApplicationWindow {
                      Layout.row: 0
 //                     Layout.preferredHeight: 80
 //                     Layout.preferredWidth: 32
-                     text: qsTr("аба4.")
+                     text: qsTr("аба5.")
                      font.weight: Font.Bold
                      color:"#000000"
                      horizontalAlignment: Text.AlignLeft
@@ -855,6 +860,100 @@ ApplicationWindow {
                  }
                  }
              }
+
+             ColumnLayout{
+                 id: vk1
+                 objectName: "vk1"
+                 anchors.fill: parent;
+
+
+                 TextField{
+                     id: login
+                     placeholderText: "Логин"
+                     Layout.alignment: Qt.AlignCenter
+                     background:
+                         Rectangle{
+
+                         id: log
+                         anchors.fill: parent
+                         color: "transparent"
+                         border.color: "transparent"
+                     }
+                  }
+
+                  TextField{
+                      id: pass
+                      placeholderText: "Пароль"
+                      Layout.alignment: Qt.AlignCenter
+                      echoMode: TextInput.Password // скрытие символов
+                      background:
+                          Rectangle{
+
+                          id: ps
+                          anchors.fill: parent
+                          color: "transparent"
+                          border.color: "transparent"
+                      }
+                  }
+
+                  Button{
+                      text: "Выполнить вход"
+                      Layout.alignment: Qt.AlignHCenter
+                      onClicked: {
+
+                          if(login.text == "" ){
+                              login.placeholderText= "ВВЕДИТЕ ЛОГИН"
+                              login.placeholderTextColor = "red"
+                              return
+                          }
+                          if(pass.text == ""){
+                              pass.placeholderText= "ВВЕДИТЕ ПАРОЛЬ"
+                              pass.placeholderTextColor = "red"
+                              return
+                          }
+                          onAuth(login.text,pass.text); // вызываем функцию авторизации с полученными из формы логином и паролем
+                          restRequest();
+                                 }
+                     }
+                  Label {
+                      id: labl3
+                      objectName: "labl3"
+                      Layout.alignment: Qt.AlignCenter
+                      font.pixelSize: 20
+                      font.bold: true
+                      text: "Авторизация прошла успешно!"
+                      visible: false
+                            }
+            }
+
+            RowLayout{
+                anchors.fill: parent
+                Layout.alignment: Qt.AlignCenter
+                //Layout.alignment: Qt.AlignHCenter
+
+                Label {
+                    id: labl2
+                    objectName: "labl2"
+                    Layout.alignment: Qt.AlignCenter
+                    font.pixelSize: 20
+                    font.bold: true
+                    text: "Полученный токен:"
+                    visible: false
+                    }
+
+                 TextEdit{
+                     id: text_edit1
+                     objectName: "text_edit1"
+                     readOnly: true
+                     color: "white"
+                     font.pointSize: 10
+                  }
+              }
+
+            background: Rectangle {
+                color:"#BABABA"
+            }
+
     }}
 
     footer: TabBar {
