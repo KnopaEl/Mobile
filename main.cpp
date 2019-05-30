@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include "webappcontroller.h"
 #include <QNetworkReply>
+#include "friendsmodel.h"
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
         return -1;
     WebAppController wa;
     //wa.getPageInfo();
+   engine.rootContext()->setContextProperty("friends_model", wa.friends_model); //Перемещаемая модель, которой присваиваем имя
 
     QObject::connect(engine.rootObjects().first(), SIGNAL(success(QString)),
     &wa, SLOT(success(QString)));
