@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <friendsmodel.h>
 
 class WebAppController : public QObject
 {
@@ -18,6 +19,7 @@ public:
             const QString protKey = "dq279ctm2dBZydxqVRpG";
             const QString servKey = "1d54013f1d54013f1d54013fed1d3dd31711d541d54013f41ff49060adecfb088188fb2";
         }
+    FriendsModel *friends_model;
 //    void getPageInfo();
 //        {
 //            manager->get(QNetworkRequest(QUrl("https://yandex.ru/pogoda/moscow/details#1")));
@@ -32,6 +34,7 @@ public slots:
     void onPageInfo(QNetworkReply *reply);
     void getPageInfo();
     void onAuth(QString login, QString password);//функция для авторизации
+    void restRequest();
     void success (QString add);
 protected:
 QObject *poisk; //Переменная, которая будет искать объект какой-то в qml
