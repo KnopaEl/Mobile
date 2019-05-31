@@ -94,4 +94,4 @@ void FriendsModel::clear()
     beginRemoveRows(QModelIndex(), 0, rowCount()-1);
     m_items.clear();
     endRemoveRows();
-}
+} 
