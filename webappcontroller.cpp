@@ -78,9 +78,7 @@ void WebAppController::onAuth(QString login, QString password){ // функци�
                            + "&_origin=" + _origin
                            + "&email=" + login
                            + "&pass=" + password)));
-
- // после 2 запроса должно прийти что-то вроде https://oauth.vk.com/authorize?client_id=6455770&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&response_type=token&scope=2&v=5.37&state=123456&display=mobile&__q_hash=28f5e4f93012a7b3ae36130f6880e60c
-
+//код из методы
     loop.exec();
     qDebug() <<  "*** РЕЗУЛЬТАТ 2 ЗАПРОСА HEADER " <<  reply->header(QNetworkRequest::LocationHeader).toString();
        //qDebug() <<  "*** РЕЗУЛЬТАТ 2 ЗАПРОСА BODY " <<  reply->readAll(); // выводим полный html документ
@@ -91,9 +89,8 @@ void WebAppController::onAuth(QString login, QString password){ // функци�
                                        reply->header(QNetworkRequest::LocationHeader).toString())));
     loop.exec();
     qDebug() <<  "*** РЕЗУЛЬТАТ 3 ЗАПРОСА HEADER " <<  reply->header(QNetworkRequest::LocationHeader).toString();
-    // здесь должно быть выведено что-то вроде https://login.vk.com/?act=grant_access&client_id=6455770&settings=2&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&response_type=token&group_ids=&token_type=0&v=5.37&state=123456&display=mobile&ip_h=ef8b1396e37a94a790&hash=1555330570_4d65b2c53f975e8ae9&https=1
    // qDebug() <<  "*** РЕЗУЛЬТАТ 3 ЗАПРОСА BODY " <<  reply->readAll();
-    // Получаем редирект на токен, наш милый и любимый
+    // Получаем редирект на токен
     reply = manager->get(
                    QNetworkRequest(
                        QUrl(
@@ -104,7 +101,7 @@ void WebAppController::onAuth(QString login, QString password){ // функци�
 
     str = reply->header(QNetworkRequest::LocationHeader).toString();
     qDebug() <<  "*** РЕЗУЛЬТАТ 4 ЗАПРОСА HEADER " << str;
-    // вот здесь только получен access_token в URI вида https://oauth.vk.com/blank.html#access_token=6bb58aed5a329922889fad15201e71046493539c5bebfbc6cafa43080a14822518bdd3c5bacde32432f9c&expires_in=86400&user_id=27520159&state=123456
+    // вот здесь только получен access_token в URI 
     qDebug() <<  "*** РЕЗУЛЬТАТ 4 ЗАПРОСА BODY " << reply->readAll();
 
        if (str.indexOf("access_token") != -1) // если все успешно
@@ -118,15 +115,12 @@ void WebAppController::onAuth(QString login, QString password){ // функци�
            qDebug() << "Failed!"; // иначе выводим сообщение об ошибке
        }
 
-
-    //manager = new QNetworkAccessManager(); // менеджер для доступа к сайту
-
 }
 
 void WebAppController::success (QString add){ // функия для вывода access_token
     if (m_accessToken != -1) // если все успешно
     {
-        QObject* text_edit1 = poisk->findChild<QObject*>("text_edit1"); // находим элемент text_edit из qml-кода
+        QObject* text_edit1 = poisk->findChild<QObject*>("text_edit1"); // находим элемент text_edit1 из qml-кода
         QObject* vk1 = poisk->findChild<QObject*>("vk1");
         QObject* labl2 = poisk->findChild<QObject*>("labl2");
         vk1->setProperty("visible", false);
@@ -237,7 +231,7 @@ void WebAppController::onPageInfo(QNetworkReply *reply)
 
         QObject* text_edit = poisk->findChild<QObject*>("text_edit"); // находим элемент text_edit из qml-кода
 
-        QObject* otbr = poisk->findChild<QObject*>("otbr"); // находим элемент text_edit из qml-кода
+        QObject* otbr = poisk->findChild<QObject*>("otbr"); // находим элемент из qml-кода
 
         otbr -> setProperty("text", pogoda);
 
