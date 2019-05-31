@@ -1,8 +1,6 @@
 #include "friendsmodel.h"
 #include <QMap>
 
-// TODO реализация конструктора и get-методов FriendObject простейшая, проработать самостоятельно
-
 FriendsObject::FriendsObject(const QString &getName, const QString &getSurname, const QUrl &getPhoto, const int &getId)
     :   m_name(getName),
         m_surname(getSurname),
@@ -18,24 +16,23 @@ FriendsModel::FriendsModel(QObject *parent) : QAbstractListModel(parent)
     //пусто
 }
 
-QString FriendsObject::getName() const{ // функция для получения имени друга
+QString FriendsObject::getName() const{ // функция для  имени друга
     return m_name;
 }
 
-QString FriendsObject::getSurname() const{ // функция для получения фамилии друга
+QString FriendsObject::getSurname() const{ // функция для  фамилии друга
     return m_surname;
 }
 
-QUrl FriendsObject::getPhoto() const{ // функция для получения фото друга
+QUrl FriendsObject::getPhoto() const{ // функция для  фото друга
     return m_photo;
 }
 
-int FriendsObject::getId() const{ // функция для получения id друга
+int FriendsObject::getId() const{ // функция для  id друга
     return m_friend_id;
 }
 
 void FriendsModel::addItem(const FriendsObject & newItem){
-    // не изменяется
   // благодаря beginInsertRows() и endInsertRows() QML реагирует на изменения модели
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_items << newItem;
@@ -44,7 +41,6 @@ void FriendsModel::addItem(const FriendsObject & newItem){
 
 int FriendsModel::rowCount(const QModelIndex &parent) const
 {
-    // не изменяется
    // метод используется ListView в QML для определения числа элементов
     Q_UNUSED(parent);
     return m_items.count();
@@ -56,8 +52,6 @@ QVariant FriendsModel::data(const QModelIndex & index,
      // метод используется в QML для получения значения одного поля под обозначением role одного элемента модели index
     if (index.row() < 0 || (index.row() >= m_items.count()))
         return QVariant();
-
-    // TODO дописать выгрузку своих полей под своими обозначениями
 
     const FriendsObject&itemToReturn = m_items[index.row()];
     if (role == FriendName)
@@ -75,19 +69,17 @@ QVariant FriendsModel::data(const QModelIndex & index,
 QHash<int, QByteArray> FriendsModel::roleNames() const
 {
     // метод используется в QML для сопоставления полей данных со строковыми названиями
-     // TODO сопоставить полям данных строковые имена
     QHash<int, QByteArray> roles;
 
     roles[FriendName] = "name";
     roles[FriendSurname] = "surname";
-    roles[FriendPhoto] = "photo";// TODO
-    roles[Friend_id] = "friend_id";// TODO
+    roles[FriendPhoto] = "photo";
+    roles[Friend_id] = "friend_id";
     return roles;
 }
 
 QVariantMap FriendsModel::get(int idx) const
 {
-    // не изменяется
    // метод используется ListView в QML для получения значений полей idx-го элемента модели
     QVariantMap map;
     foreach(int k, roleNames().keys())
