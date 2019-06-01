@@ -1,6 +1,10 @@
 QT += quick
 QT += network
 CONFIG += c++11
+INCLUDEPATH += "C:\OpenSSL-Win64\include"
+LIBS += "C:\OpenSSL-Win64\lib\libeay32.lib" \
+"C:\OpenSSL-Win64\lib\ssleay32.lib" \
+"C:\OpenSSL-Win64\lib\ubsec.lib"
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -17,7 +21,9 @@ SOURCES += \
         main.cpp \
     main.cpp \
     main.cpp \
-    webappcontroller.cpp
+    webappcontroller.cpp \
+    friendsmodel.cpp \
+    cryptocontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,7 +50,9 @@ DISTFILES += \
     image/sun.jpg
 
 HEADERS += \
-    webappcontroller.h
+    webappcontroller.h \
+    friendsmodel.h \
+    cryptocontroller.h
 
 QMAKE_EXTRA_TARGETS += before_build makefilehook
 
