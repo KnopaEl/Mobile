@@ -5,7 +5,7 @@ import QtMultimedia 5.12
 import QtQuick.Window 2.11
 import QtGraphicalEffects 1.12
 import Qt.labs.platform 1.1
-import QtWebView 1.1
+
 
 ApplicationWindow {
     id: window
@@ -17,6 +17,8 @@ ApplicationWindow {
     signal success (string add);
     signal restRequest();
     signal onAuth(string login, string password);
+    signal encrypt(string key);
+    signal decrypt(string key);
 
     SwipeView {
         id: swipeView
@@ -1177,6 +1179,115 @@ ApplicationWindow {
 
     }
 
+        Page { //Лабораторная работа 7. Шифрование
+             id: page7
+             width: 640
+             height: 1000
+
+             header: Rectangle { // прямоугольник, то есть место, где содержиться заголовок
+                 color:"#FFFFFF"
+                 width: 640
+                 height: 80
+
+                 GridLayout{ //выравнивание заголовка, используя "таблицу"
+                     anchors.fill: parent
+                     columns: 4
+                     rows: 1
+
+                 Label{//- название как у яндекса (Я-красная, ндекс- черные)
+                     Layout.column: 0
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 8
+                     text: qsTr("Л")
+                     font.weight: Font.Bold
+                     color:"#FB170E"
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignVCenter
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 6
+                     font{
+                         family: "Bahnschrift Condensed"
+                     }
+                 }
+                 Label{//- название как у яндекса (Я-красная, ндекс- черные)
+                     Layout.column: 1
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 32
+                     text: qsTr("аба7.")
+                     font.weight: Font.Bold
+                     color:"#000000"
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignBottom
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 3
+                     font{
+                         family: "Times New Roman"
+                     }
+                 }
+                 Label { //- содержание 1 лабы -желтым цветом
+                     Layout.column: 2
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 40
+                     color: "#FFEA2E"
+                     text: qsTr("Encryption&Decryption")
+                     font.weight: Font.Bold
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignBottom
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 3
+                     font{
+                         family: "Bahnschrift Condensed"
+                     }
+                 }
+                 }}
+             ColumnLayout{
+                     anchors.fill: parent
+                     Layout.alignment: Qt.AlignCenter
+
+                     TextField{
+                         id: key
+                         placeholderText: "Ключ шифрования"
+                         Layout.alignment: Qt.AlignCenter
+                         background:
+                             Rectangle{
+                             id: lg1
+                                 anchors.fill: parent
+                                 color: "transparent"
+                                 border.color: "transparent"
+                                 }
+                     }
+                     Button{
+                             text: "Зашифровать"
+                             Layout.alignment: Qt.AlignHCenter
+                             onClicked: {
+                             if(key.text == "" ){
+                               key.placeholderText= "ВВЕДИТЕ КЛЮЧ"
+                               key.placeholderTextColor = "red"
+                                return
+                             }
+                                 encrypt(key.text);
+                             }
+                     }
+
+                     Button{
+                             text: "Дешифровать"
+                             Layout.alignment: Qt.AlignHCenter
+                             onClicked: {
+                             if(key.text == "" ){
+                               key.placeholderText= "ВВЕДИТЕ КЛЮЧ"
+                               key.placeholderTextColor = "red"
+                                return
+                             }
+                                 decrypt(key.text);
+                             }
+                     }}
+             background: Rectangle {
+                 color:"#BABABA"
+             }}
+
     }
 
     footer: TabBar {
@@ -1200,6 +1311,9 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("Лаба6")
+        }
+        TabButton {
+            text: qsTr("Лаба7")
         }
     }
 }
