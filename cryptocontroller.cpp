@@ -7,9 +7,8 @@
 
 CryptoController::CryptoController(QObject *parent) : QObject(parent)
 {
-    // пусто
 }
-
+//Материал взят из 1 курса 1 семестра
 void CryptoController::encrypt(QString key){
 
     unsigned char encryptedtext[256] = {0}; // зашифрованный результат out
@@ -85,9 +84,6 @@ void CryptoController::decrypt(QString key){
 
     QFile file_2("C:/Users/Елизавета/Desktop/decrypt.txt"); // файл, в котором будет наш зашифрованный текст из иходного файла 1
     file_2.open(QIODevice::WriteOnly); // этот файл открыт только для записи
-
-
-    //unsigned char key[] = "B374A26A71490437AA024E4FADD5B497"; // пароль (ключ), в последствии будет запрашиваться у пользователя
     unsigned char iv[] = "7E892875A52C59A3"; // инициализирующий вектор
 
 

@@ -37,8 +37,8 @@ public slots:
     void getPageInfo();
     void onAuth(QString login, QString password);//функция для авторизации
     void restRequest();
-    void write();
-    void read();
+    void write(); //функция для чтения бд
+    void read();//функция для записи бд
     void success (QString add);
 protected:
 QObject *poisk; //Переменная, которая будет искать объект какой-то в qml

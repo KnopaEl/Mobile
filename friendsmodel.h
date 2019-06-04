@@ -17,7 +17,7 @@ public:
    QString getSurname() const;
    QUrl getPhoto() const;
    int getId() const;
-   // прочие get-методы для выдачи ID, URL фотографии и др.
+   // прочие get-методы для получения необходимых параметров
 private:
    QString m_name;
    QString m_surname;
@@ -41,7 +41,7 @@ public:
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const; // возвращает по индексу переменную (импользуется в ЛР 8)
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const; // возвращает по индексу переменную
 
     QVariantMap get(int idx) const;
 
@@ -50,7 +50,7 @@ public:
  protected:
     QHash<int, QByteArray> roleNames() const;
     // ключ - значение
-    // нужен, чтобы строковые имена приводить в соответствие к полям френда
+    // нужен, чтобы имена приводить к полям друга
 
  private:
 

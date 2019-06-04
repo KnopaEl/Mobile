@@ -1074,7 +1074,6 @@ ApplicationWindow {
                                     width: 300
                                     height: 150
                                     border.color: "gray"
-                                    Layout.margins: 10
                                     GridLayout{
                                         anchors.fill: parent
                                         columns: 3
@@ -1139,8 +1138,7 @@ ApplicationWindow {
                                         Layout.row: 1
                                         Layout.fillHeight: true
                                         Layout.preferredWidth: 100
-                                        //Layout.margins: 20
-                                    }
+                                     }
                                     Label{ // фамилия
                                         color: "black"
                                         text: surname
@@ -1148,7 +1146,6 @@ ApplicationWindow {
                                         Layout.row: 1
                                         Layout.fillHeight: true
                                         Layout.preferredWidth: 100
-                                        //Layout.margins: 20
                                     }
                                     Label{ // ID
                                         color: "black"
@@ -1157,7 +1154,6 @@ ApplicationWindow {
                                         Layout.row: 1
                                         Layout.fillHeight: true
                                         Layout.preferredWidth: 100
-                                        //Layout.margins: 20
                                     }
                                 }
                             }
@@ -1238,7 +1234,8 @@ ApplicationWindow {
                      anchors.fill: parent
                      Layout.alignment: Qt.AlignCenter
 
-                     TextField{
+                     TextField{ //unsigned char key[] = "B374A26A71490437AA024E4FADD5B497";
+                         // пароль (ключ), который мы вводим
                          id: key
                          placeholderText: "Ключ шифрования"
                          Layout.alignment: Qt.AlignCenter
@@ -1256,7 +1253,6 @@ ApplicationWindow {
                              onClicked: {
                              if(key.text == "" ){
                                key.placeholderText= "ВВЕДИТЕ КЛЮЧ"
-                               key.placeholderTextColor = "red"
                                 return
                              }
                                  encrypt(key.text);
@@ -1269,7 +1265,6 @@ ApplicationWindow {
                              onClicked: {
                              if(key.text == "" ){
                                key.placeholderText= "ВВЕДИТЕ КЛЮЧ"
-                               key.placeholderTextColor = "red"
                                 return
                              }
                                  decrypt(key.text);
@@ -1346,17 +1341,17 @@ ApplicationWindow {
              ColumnLayout {
                  anchors.fill: parent
                  Layout.alignment: Qt.AlignHCenter
-                     Button{
-                         id: kn
-                         Layout.alignment: Qt.AlignCenter
-                         text: "Показать друзей"
-                         Rectangle{
-                             color: "#F4F66A"
-                         }
-                         onClicked: {
-                             read();
-                         }
-                     }
+                     //Button{
+                       //  id: kn
+                         //Layout.alignment: Qt.AlignCenter
+                      //   text: "Показать друзей"
+                      //   Rectangle{
+                      //       color: "#F4F66A"
+                      //   }
+                      //   onClicked: {
+                      //       read();
+                      //   }
+                     //}
 
                      GridView{
                          width: page8.width
@@ -1368,7 +1363,7 @@ ApplicationWindow {
                                  width: 350
                                  color: "#FBFD8B"
                                  Text{
-                                     text: "Name " + name + "\n" + "Фам-лия " + surname + "\n" + "ID: " + friend_id
+                                     text: "Имя " + name + "\n" + "Ф-ия " + surname + "\n" + "ID: " + friend_id + "\n"
                                  }
                              }
                          }
