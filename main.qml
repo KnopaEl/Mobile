@@ -1,5 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls 2.5
+//import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtMultimedia 5.12
 import QtQuick.Window 2.11
@@ -19,6 +21,8 @@ ApplicationWindow {
     signal onAuth(string login, string password);
     signal encrypt(string key);
     signal decrypt(string key);
+    signal read();
+    signal write();
 
     SwipeView {
         id: swipeView
@@ -354,7 +358,7 @@ ApplicationWindow {
                                              Layout.preferredWidth: 100
                                              //width: 100
                                              //height: 100
-                                             
+
 
                                              Image {
                                                  id: image2
@@ -1055,61 +1059,61 @@ ApplicationWindow {
                                 }
                         }
                     }
+                    GridView{
+                                id: grid
+                                visible: true
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                enabled: true
+                                cellHeight: 150
+                                cellWidth: 300
+                                model: friends_model
 
-
-                        GridView{
-                            id: grid
-                            visible: true
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            enabled: true
-                            cellHeight: 150
-                            cellWidth: 300
-                            model: friends_model
-
-                            //spacing: 10
-
-                            delegate: Rectangle{
-                                color: "white"
-                                width: 300
-                                height: 150
-                                border.color: "pink"
-                                Layout.margins: 10
-                                GridLayout{
-                                    anchors.fill: parent
-                                    columns: 3
-                                    rows: 3
-                                    //Layout.margins: 20
-                                    Label{ // имя
-                                        color: "black"
-                                        text: name
-                                        Layout.column: 1
-                                        Layout.row: 1
-                                        Layout.fillHeight: true
-                                        Layout.preferredWidth: 100
-                                        //Layout.margins: 20
-                                    }
-                                    Label{ // фамилия
-                                        color: "black"
-                                        text: surname
-                                        Layout.column: 1
-                                        Layout.row: 2
-                                        Layout.fillHeight: true
-                                        Layout.preferredWidth: 100
-                                        //Layout.margins: 20
-                                    }
-                                    Label{ // ID
-                                        color: "black"
-                                        text: "ID" + friend_id
-                                        Layout.column: 1
-                                        Layout.row: 3
-                                        Layout.fillHeight: true
-                                        Layout.preferredWidth: 100
-                                        //Layout.margins: 20
+                                delegate: Rectangle{
+                                    color: "gray"
+                                    width: 300
+                                    height: 150
+                                    border.color: "gray"
+                                    Layout.margins: 10
+                                    GridLayout{
+                                        anchors.fill: parent
+                                        columns: 3
+                                        rows: 3
+                                        Image{
+                                            source: photo
+                                            Layout.column: 0
+                                            Layout.row: 0
+                                            Layout.fillHeight: true
+                                            Layout.preferredWidth: 100
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                        Label{ // имя
+                                            color: "black"
+                                            text: name
+                                            Layout.column: 1
+                                            Layout.row: 1
+                                            Layout.fillHeight: true
+                                            Layout.preferredWidth: 100
+                                        }
+                                        Label{ // фамилия
+                                            color: "black"
+                                            text: surname
+                                            Layout.column: 1
+                                            Layout.row: 2
+                                            Layout.fillHeight: true
+                                            Layout.preferredWidth: 100
+                                        }
+                                        Label{ // ID
+                                            color: "black"
+                                            text: "ID" + friend_id
+                                            Layout.column: 1
+                                            Layout.row: 3
+                                            Layout.fillHeight: true
+                                            Layout.preferredWidth: 50
+                                        }
                                     }
                                 }
                             }
-                        }
 
                         ListView{
                             id: list
@@ -1121,26 +1125,13 @@ ApplicationWindow {
                             spacing: 30
 
                             delegate: Rectangle{
-                                color: "white"
+                                color: "grey"
                                 width: 600
                                 height: 100
-                                border.color: "pink"
-                                Layout.margins: 10
                                 GridLayout{
                                     anchors.fill: parent
                                     columns: 3
                                     rows: 3
-                                    //Layout.margins: 20
-                                    Image{
-                                        source: photo
-                                        Layout.column: 0
-                                        Layout.row: 0
-                                        Layout.rowSpan: 3
-                                        Layout.fillHeight: true
-                                        Layout.preferredWidth: 100
-                                        Layout.margins: 5
-                                        fillMode: Image.PreserveAspectFit
-                                    }
                                     Label{ // имя
                                         color: "black"
                                         text: name
@@ -1288,6 +1279,107 @@ ApplicationWindow {
                  color:"#BABABA"
              }}
 
+        Page { //Лабораторная работа 8. Базы Данных
+             id: page8
+             width: 640
+             height: 1000
+
+             header: Rectangle { // прямоугольник, то есть место, где содержиться заголовок
+                 color:"#FFFFFF"
+                 width: 640
+                 height: 80
+
+                 GridLayout{ //выравнивание заголовка, используя "таблицу"
+                     anchors.fill: parent
+                     columns: 4
+                     rows: 1
+
+                 Label{//- название как у яндекса (Я-красная, ндекс- черные)
+                     Layout.column: 0
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 8
+                     text: qsTr("Л")
+                     font.weight: Font.Bold
+                     color:"#FB170E"
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignVCenter
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 6
+                     font{
+                         family: "Bahnschrift Condensed"
+                     }
+                 }
+                 Label{//- название как у яндекса (Я-красная, ндекс- черные)
+                     Layout.column: 1
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 32
+                     text: qsTr("аба8.")
+                     font.weight: Font.Bold
+                     color:"#000000"
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignBottom
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 3
+                     font{
+                         family: "Times New Roman"
+                     }
+                 }
+                 Label { //- содержание 1 лабы -желтым цветом
+                     Layout.column: 2
+                     Layout.row: 0
+//                     Layout.preferredHeight: 80
+//                     Layout.preferredWidth: 40
+                     color: "#FFEA2E"
+                     text: qsTr("DataBase")
+                     font.weight: Font.Bold
+                     horizontalAlignment: Text.AlignLeft
+                     verticalAlignment: Text.AlignBottom
+                     font.capitalization: Font.AllUppercase
+                     font.pixelSize: Qt.application.font.pixelSize * 3
+                     font{
+                         family: "Bahnschrift Condensed"
+                     }
+                 }
+                 }}
+             ColumnLayout {
+                 anchors.fill: parent
+                 Layout.alignment: Qt.AlignHCenter
+                     Button{
+                         id: kn
+                         Layout.alignment: Qt.AlignCenter
+                         text: "Показать друзей"
+                         Rectangle{
+                             color: "#F4F66A"
+                         }
+                         onClicked: {
+                             read();
+                         }
+                     }
+
+                     GridView{
+                         width: page8.width
+                         height: page8.height
+                         model: friends_model
+                         delegate: Column{
+                             Rectangle {
+                                 height: 70
+                                 width: 350
+                                 color: "#FBFD8B"
+                                 Text{
+                                     text: "Name " + name + "\n" + "Фам-лия " + surname + "\n" + "ID: " + friend_id
+                                 }
+                             }
+                         }
+
+                     }
+             }
+             background: Rectangle {
+                 color:"#F4F66A"
+             }
+        }
+
     }
 
     footer: TabBar {
@@ -1314,6 +1406,9 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("Лаба7")
+        }
+        TabButton {
+            text: qsTr("Лаба8")
         }
     }
 }

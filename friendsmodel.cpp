@@ -1,38 +1,35 @@
 #include "friendsmodel.h"
 #include <QMap>
-
 FriendsObject::FriendsObject(const QString &getName, const QString &getSurname, const QUrl &getPhoto, const int &getId)
     :   m_name(getName),
         m_surname(getSurname),
         m_photo(getPhoto),
         m_friend_id(getId)
 {
- //
 }
-
 
 FriendsModel::FriendsModel(QObject *parent) : QAbstractListModel(parent)
 {
-    //пусто
 }
 
-QString FriendsObject::getName() const{ // функция для  имени друга
+QString FriendsObject::getName() const{ //имя друга
     return m_name;
 }
 
-QString FriendsObject::getSurname() const{ // функция для  фамилии друга
+QString FriendsObject::getSurname() const{ //фамилия друга
     return m_surname;
 }
 
-QUrl FriendsObject::getPhoto() const{ // функция для  фото друга
+QUrl FriendsObject::getPhoto() const{ // фото друга
     return m_photo;
 }
 
-int FriendsObject::getId() const{ // функция для  id друга
+int FriendsObject::getId() const{ // id друга
     return m_friend_id;
 }
 
 void FriendsModel::addItem(const FriendsObject & newItem){
+    // не изменяется
   // благодаря beginInsertRows() и endInsertRows() QML реагирует на изменения модели
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_items << newItem;
@@ -41,6 +38,7 @@ void FriendsModel::addItem(const FriendsObject & newItem){
 
 int FriendsModel::rowCount(const QModelIndex &parent) const
 {
+    // не изменяется
    // метод используется ListView в QML для определения числа элементов
     Q_UNUSED(parent);
     return m_items.count();
@@ -80,7 +78,8 @@ QHash<int, QByteArray> FriendsModel::roleNames() const
 
 QVariantMap FriendsModel::get(int idx) const
 {
-   // метод используется ListView в QML для получения значений полей idx-го элемента модели
+    // не изменяется
+   // метод используется ListView в QML для получения значений полей id элемента модели
     QVariantMap map;
     foreach(int k, roleNames().keys())
     {
@@ -94,4 +93,4 @@ void FriendsModel::clear()
     beginRemoveRows(QModelIndex(), 0, rowCount()-1);
     m_items.clear();
     endRemoveRows();
-} 
+}

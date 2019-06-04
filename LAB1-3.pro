@@ -1,5 +1,6 @@
 QT += quick
 QT += network
+QT += sql
 CONFIG += c++11
 INCLUDEPATH += "C:\OpenSSL-Win64\include"
 LIBS += "C:\OpenSSL-Win64\lib\libeay32.lib" \

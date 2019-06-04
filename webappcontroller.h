@@ -3,8 +3,10 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QFile>
 #include <friendsmodel.h>
-
+#include <QSqlDatabase>
+#include <QtWidgets/QTableView>
 class WebAppController : public QObject
 {
     Q_OBJECT
@@ -35,6 +37,8 @@ public slots:
     void getPageInfo();
     void onAuth(QString login, QString password);//функция для авторизации
     void restRequest();
+    void write();
+    void read();
     void success (QString add);
 protected:
 QObject *poisk; //Переменная, которая будет искать объект какой-то в qml

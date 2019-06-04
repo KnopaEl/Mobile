@@ -5,7 +5,6 @@
 #include <QList>
 #include <QModelIndex>
 #include <QAbstractListModel>
-
 class FriendsObject
 {
 public:
@@ -24,7 +23,6 @@ private:
    QString m_surname;
    QUrl m_photo;
    int m_friend_id;
-   // прочие свойства для хранения ID, URL фотографии и др.
 };
 
 
@@ -43,7 +41,7 @@ public:
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const; // возвращает по индексу переменную
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const; // возвращает по индексу переменную (импользуется в ЛР 8)
 
     QVariantMap get(int idx) const;
 
@@ -51,7 +49,8 @@ public:
 
  protected:
     QHash<int, QByteArray> roleNames() const;
-    // ключ -  нужен, чтобы строковые имена приводить в соответствие к полям френда
+    // ключ - значение
+    // нужен, чтобы строковые имена приводить в соответствие к полям френда
 
  private:
 

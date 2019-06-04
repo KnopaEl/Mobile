@@ -5,7 +5,7 @@
 #include <QNetworkReply>
 #include "friendsmodel.h"
 #include "cryptocontroller.h"
-
+#include <QtWidgets/QTableView>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -29,9 +29,13 @@ int main(int argc, char *argv[])
     &wa, SLOT(restRequest()));
     QObject::connect(engine.rootObjects().first(), SIGNAL(encrypt(QString)),
     &CryptoControl, SLOT(encrypt(QString)));
-
     QObject::connect(engine.rootObjects().first(), SIGNAL(decrypt(QString)),
     &CryptoControl, SLOT(decrypt(QString)));
+    QObject::connect(engine.rootObjects().first(), SIGNAL(read()),
+    &wa, SLOT(read()));
+    QObject::connect(engine.rootObjects().first(), SIGNAL(write()),
+    &wa, SLOT(write()));
+
 
 
 //    QObject::connect(engine.rootObjects().first(), SIGNAL(getPageInfo()), &wa, SLOT(getPageInfo()));
@@ -39,6 +43,7 @@ int main(int argc, char *argv[])
     QObject* root = engine.rootObjects()[0];
     WebAppController myV(root);
     engine.rootContext()->setContextProperty("_myV", &myV);
+
 
 
 
